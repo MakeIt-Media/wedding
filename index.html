@@ -10,55 +10,55 @@
 
   <title>The Bella Wedding</title>
 
-  <style>
-    :root {
-      --wix-banner-height: 50px;
-    }
+ <style>
+  :root {
+    --wix-banner-height: 50px;
+  }
 
-    * {
-      box-sizing: border-box;
-    }
+  * {
+    box-sizing: border-box;
+  }
 
-    html,
-    body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: #ffffff;
-    }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-x: hidden;
+    background: #ffffff;
+  }
 
-    .wix-wrapper {
-      position: fixed;
-      inset: 0;
-      overflow: hidden;
-      background: #ffffff;
-    }
+  .wix-wrapper {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: #ffffff;
+    width: 100vw;
+    height: 100vh;
+  }
 
+  .wix-wrapper iframe {
+    position: absolute;
+    top: calc(-1 * var(--wix-banner-height));
+    left: 0;
+    width: 100%;
+    height: calc(100% + var(--wix-banner-height));
+    border: 0;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+
+  @media (max-width: 768px) {
     .wix-wrapper iframe {
-      position: absolute;
-
-      /* Wix-Werbebalken nach oben aus dem Bildschirm schieben */
-      top: calc(-1 * var(--wix-banner-height));
-      left: 0;
-
-      width: 100%;
+      left: -12px;
+      width: calc(100% + 24px);
       height: calc(100% + var(--wix-banner-height));
-
-      margin: 0;
-      padding: 0;
-      border: 0;
-
-      display: block;
     }
-
-    @media (max-width: 768px) {
-      :root {
-        --wix-banner-height: 50px;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 
 <body>
