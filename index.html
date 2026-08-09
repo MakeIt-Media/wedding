@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
+
   <meta charset="UTF-8">
 
   <meta
@@ -10,68 +12,268 @@
 
   <title>The Bella Wedding</title>
 
- <style>
-  :root {
-    --wix-banner-height: 50px;
-  }
 
-  * {
-    box-sizing: border-box;
-  }
+  <style>
 
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    overflow-x: hidden;
-    background: #ffffff;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  .wix-wrapper {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    background: #ffffff;
-    width: 100vw;
-    height: 100vh;
-  }
 
-  .wix-wrapper iframe {
-    position: absolute;
-    top: calc(-1 * var(--wix-banner-height));
-    left: 0;
-    width: 100%;
-    height: calc(100% + var(--wix-banner-height));
-    border: 0;
-    margin: 0;
-    padding: 0;
-    display: block;
-  }
+    html,
+    body {
+      margin: 0;
+      padding: 0;
 
-  @media (max-width: 768px) {
-  .wix-wrapper iframe {
-    left: -28px;
-    width: calc(100% + 56px);
-    height: calc(100% + var(--wix-banner-height));
-  }
+      width: 100%;
+      height: 100%;
 
-}
-  }
-</style>
+      overflow: hidden;
+
+      background: #000000;
+    }
+
+
+    .wix-wrapper {
+      position: fixed;
+
+      top: 0;
+      left: 0;
+
+      width: 100vw;
+      height: 100vh;
+
+      overflow: hidden;
+
+      background: #000000;
+    }
+
+
+    #wixFrame {
+      position: absolute;
+
+      border: 0;
+
+      margin: 0;
+      padding: 0;
+
+      display: block;
+    }
+
+
+    /* DESKTOP */
+
+    @media (min-width: 769px) {
+
+      #wixFrame {
+        top: -50px;
+        left: 0;
+
+        width: 100%;
+        height: calc(100% + 50px);
+
+        transform: none;
+      }
+
+    }
+
+
+    /* MOBILE */
+
+    @media (max-width: 768px) {
+
+      #wixFrame {
+
+        /*
+          Wix verwendet auf Mobile
+          intern einen 320px Viewport.
+        */
+
+        width: 320px;
+
+        max-width: none;
+
+        transform-origin: top left;
+
+      }
+
+    }
+
+  </style>
+
 </head>
+
 
 <body>
 
+
   <div class="wix-wrapper">
+
     <iframe
+      id="wixFrame"
       src="https://thebellawedding.wixsite.com/website-3"
       title="The Bella Wedding"
       allow="fullscreen"
     ></iframe>
+
   </div>
 
+
+  <script>
+
+    const frame =
+      document.getElementById("wixFrame");
+
+
+    const WIX_MOBILE_WIDTH = 320;
+
+    const WIX_BANNER_HEIGHT = 50;
+
+
+    function resizeWix() {
+
+
+      /*
+       * MOBILE
+       */
+
+      if (window.innerWidth <= 768) {
+
+
+        const screenWidth =
+          window.innerWidth;
+
+
+        const screenHeight =
+          window.innerHeight;
+
+
+        /*
+         * Beispiel:
+         *
+         * iPhone Breite = 390px
+         * Wix Breite    = 320px
+         *
+         * 390 / 320 = 1.21875
+         */
+
+        const scale =
+          screenWidth / WIX_MOBILE_WIDTH;
+
+
+        /*
+         * Wix iframe zuerst exakt
+         * mit 320px rendern
+         */
+
+        frame.style.width =
+          WIX_MOBILE_WIDTH + "px";
+
+
+        /*
+         * Höhe vor Skalierung berechnen
+         */
+
+        frame.style.height =
+          (
+            screenHeight / scale
+            +
+            WIX_BANNER_HEIGHT
+          )
+          + "px";
+
+
+        frame.style.left =
+          "0px";
+
+
+        /*
+         * Wix-Banner ebenfalls skaliert,
+         * deshalb Offset mitskalieren
+         */
+
+        frame.style.top =
+          (
+            -WIX_BANNER_HEIGHT
+            *
+            scale
+          )
+          + "px";
+
+
+        /*
+         * Jetzt 320px exakt
+         * auf Handybreite skalieren
+         */
+
+        frame.style.transform =
+          "scale(" + scale + ")";
+
+
+        frame.style.transformOrigin =
+          "top left";
+
+      }
+
+
+      /*
+       * DESKTOP
+       */
+
+      else {
+
+
+        frame.style.width =
+          "100%";
+
+
+        frame.style.height =
+          "calc(100% + 50px)";
+
+
+        frame.style.left =
+          "0px";
+
+
+        frame.style.top =
+          "-50px";
+
+
+        frame.style.transform =
+          "none";
+
+      }
+
+    }
+
+
+    resizeWix();
+
+
+    window.addEventListener(
+      "resize",
+      resizeWix
+    );
+
+
+    window.addEventListener(
+      "orientationchange",
+      resizeWix
+    );
+
+
+    if (window.visualViewport) {
+
+      window.visualViewport.addEventListener(
+        "resize",
+        resizeWix
+      );
+
+    }
+
+  </script>
+
+
 </body>
+
 </html>
