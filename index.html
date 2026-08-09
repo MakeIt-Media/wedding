@@ -117,7 +117,25 @@
     ></iframe>
 
   </div>
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const lang = params.get("lang") || "de";
 
+  const wixBase =
+    "https://thebellawedding.wixsite.com/website-3";
+
+  let wixUrl = wixBase;
+
+  if (lang === "fr") {
+    wixUrl = wixBase + "/fr";
+  }
+
+  if (lang === "en") {
+    wixUrl = wixBase + "/en";
+  }
+
+  document.getElementById("wixFrame").src = wixUrl;
+</script>
 
   <script>
 
